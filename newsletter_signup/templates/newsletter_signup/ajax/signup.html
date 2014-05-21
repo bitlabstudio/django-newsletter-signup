@@ -1,0 +1,7 @@
+{% load i18n %}
+<h1>{% trans "Signup for our newsletter!" %}</h1>
+{% if not form.instance.pk %}
+    {% include "newsletter_signup/partials/signup_form.html" %}
+{% else %}
+    <p>{% trans "You should receive a verification email in a few minutes, please click the activation link to start your subscription." %}</p>
+{% endif %}

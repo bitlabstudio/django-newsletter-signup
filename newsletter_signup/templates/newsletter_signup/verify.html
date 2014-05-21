@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block main %}
+    {% if activated %}
+        <p>{% trans "Thanks! You are now subscribed to our newsletter." %}</p>
+    {% else %}
+        {% if token_found %}
+            <p>{% trans "The link you clicked was no longer valid. Your subscription is already active." %}</p>
+        {% else %}
+            <p>{% trans "The link was invalid. Please check if it was correct or try to subscribe again." %}</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

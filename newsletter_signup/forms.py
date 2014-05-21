@@ -1,4 +1,6 @@
 """Forms for the ``newsletter_signup`` app."""
+import uuid
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -15,6 +17,7 @@ class NewsletterSignupForm(forms.ModelForm):
             if models.NewsletterSignup.objects.filter(email=email).exists():
                 self._errors['email'] = [_(
                     'A subscription with this email already exists.')]
+        cleaned_data['uuid'] = uuid.uuid4()
         return cleaned_data
 
     class Meta:
@@ -37,9 +40,8 @@ class NewsletterUnsubscribeForm(forms.ModelForm):
                     'A subscription with this email does not exist.')]
         return cleaned_data
 
-    def save(self):
+    def delete(self):
         self.instance.delete()
-        return True
 
     class Meta:
         model = models.NewsletterSignup

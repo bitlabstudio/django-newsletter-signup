@@ -39,6 +39,7 @@ dev_requires = [
 install_requires = [
     'django',
     'django-extensions',
+    'django-mailer',
 ]
 
 

@@ -1,0 +1,6 @@
+{% load i18n %}
+<form action="." method="post">
+    {% csrf_token %}
+    <p>{% include "django_libs/partials/form_field.html" with field=form.email %}</p>
+    <p><input type="submit" class="btn btn-primary" value="{% trans "Signup" %}"></p>
+</form>

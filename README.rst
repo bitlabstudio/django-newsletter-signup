@@ -35,7 +35,7 @@ Add the ``newsletter_signup`` URLs to your ``urls.py``
 
     urlpatterns = patterns('',
         ...
-        url(r'^newsletter-signup/', include('newsletter_signup.urls')),
+        url(r'^newsletter/', include('newsletter_signup.urls')),
     )
 
 

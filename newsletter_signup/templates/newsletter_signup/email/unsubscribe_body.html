@@ -1,0 +1,3 @@
+{% load i18n %}
+<p>{% trans "You have been unsubscribed from our newsletter. We are sorry to see you go." %}</p>
+<p>{% trans "If you like to subscribe again click" %} <a href="https://{{ request.get_host }}{% url "newsletter_signup" %}">{% trans "here" %}</a>.</p>

@@ -1,3 +1,4 @@
+# flake8: noqa
 """Settings that need to be set in order to run the tests."""
 import os
 
@@ -17,6 +18,10 @@ DATABASES = {
 }
 
 ROOT_URLCONF = 'newsletter_signup.tests.urls'
+
+FROM_EMAIL = 'from@example.com'
+EMAIL_SUBJECT_PREFIX = '[test cremesimon] '
+EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(APP_ROOT, '../app_static')
@@ -47,6 +52,7 @@ EXTERNAL_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
     'django_nose',
+    'mailer',
 ]
 
 INTERNAL_APPS = [
@@ -57,3 +63,9 @@ INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS
 COVERAGE_MODULE_EXCLUDES += EXTERNAL_APPS
 
 SECRET_KEY = 'foobar'
+
+
+NEWSLETTER_SIGNUP_SUBSCRIBE_SUBJECT = lambda sub: 'User {0} subscribed'.format(
+    sub.user or sub.email)
+NEWSLETTER_SIGNUP_UNSUBSCRIBE_SUBJECT = lambda sub: 'User {0} unsubscribed'.format(
+    sub.user or sub.email)

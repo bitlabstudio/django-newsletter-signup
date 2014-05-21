@@ -1,0 +1,7 @@
+{% load i18n %}
+<p>{% trans "Dear" %} {{ subscription.email }},</p>
+<p>{% trans "Thank you for subscribing to our newsletter." %}</p>
+<p>{% trans "Please clickt the following link to verify your subscription." %}</p>
+<p><a href="https://{{ request.get_host }}{% url "newsletter_verify" uuid=subscription.verification_token %}">https://{{ request.get_host}}{% url "newsletter_verify" uuid=subscription.verification_token %}</a></p>
+<p>{% trans "If you did not subscribe to our newsletter, you can just ignore this email. The subscription is only active, when it has been verified." %}</p>
+<p>{% trans "Regards" %}</p>

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block main %}
+    {% if not subscription_deleted %}
+        <h1>{% trans "Unsubscribe from our newsletter" %}</h1>
+        <p>{% trans "Pleas enter your email below to unsubscribe." %}</p>
+        <form action="." method="post">
+            {% csrf_token %}
+            <p>{% include "django_libs/partials/form_field.html" with field=form.email %}</p>
+            <p><input type="submit" class="btn btn-primary" value="{% trans "Unsubscribe" %}"></p>
+        </form>
+    {% else %}
+        <p>{% trans "You've been unsubscribed from our newsletter." %}</p>
+        <p>{% trans "If you like to subscribe again click" %} <a href="{% url "newsletter_signup" %}">{% trans "here" %}</a>.</p>
+    {% endif %}
+{% endblock %}

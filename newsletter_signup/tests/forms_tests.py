@@ -43,6 +43,6 @@ class NewsletterUnsubscribeFormTestCase(TestCase):
         form = forms.NewsletterUnsubscribeForm(self.data)
         self.assertTrue(form.is_valid(), msg=(
             'The form should be valid. Errors: {0}'.format(form.errors)))
-        form.save()
+        form.delete()
         self.assertEqual(models.NewsletterSignup.objects.count(), 0, msg=(
             'There should be no subscription in the database.'))
