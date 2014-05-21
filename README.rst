@@ -1,7 +1,7 @@
 Django Newsletter Signup
 ============
 
-A reusable Django app, that handles newsletter subscriptions
+A reusable Django app, that handles newsletter subscriptions.
 
 Installation
 ------------
