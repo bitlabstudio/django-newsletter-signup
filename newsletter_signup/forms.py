@@ -20,3 +20,27 @@ class NewsletterSignupForm(forms.ModelForm):
     class Meta:
         model = models.NewsletterSignup
         fields = ['email', ]
+
+
+class NewsletterUnsubscribeForm(forms.ModelForm):
+    """Handles unsubscriptions from the newsletter."""
+
+    def clean(self):
+        cleaned_data = super(NewsletterUnsubscribeForm, self).clean()
+        email = cleaned_data.get('email', None)
+        if email is not None:
+            try:
+                self.instance = models.NewsletterSignup.objects.get(
+                    email=email)
+            except:
+                self._errors['email'] = [_(
+                    'A subscription with this email does not exist.')]
+        return cleaned_data
+
+    def save(self):
+        self.instance.delete()
+        return True
+
+    class Meta:
+        model = models.NewsletterSignup
+        fields = ['email', ]
