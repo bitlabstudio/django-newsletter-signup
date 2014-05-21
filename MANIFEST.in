@@ -1,0 +1,9 @@
+include AUTHORS
+include LICENSE
+include DESCRIPTION
+include CHANGELOG.txt
+include README.md
+graft newsletter_signup
+global-exclude *.orig *.pyc *.log *.swp
+prune newsletter_signup/tests/coverage
+prune newsletter_signup/.ropeproject
