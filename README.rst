@@ -38,12 +38,6 @@ Add the ``newsletter_signup`` URLs to your ``urls.py``
         url(r'^newsletter-signup/', include('newsletter_signup.urls')),
     )
 
-Before your tags/filters are available in your templates, load them by using
-
-.. code-block:: html
-
-	{% load newsletter_signup_tags %}
-
 
 Don't forget to migrate your database
 
