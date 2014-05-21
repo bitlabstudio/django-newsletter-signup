@@ -46,13 +46,11 @@ EXTERNAL_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.sites',
-    'django_jasmine',
     'django_nose',
 ]
 
 INTERNAL_APPS = [
     'newsletter_signup',
-    'newsletter_signup.tests.test_app',
 ]
 
 INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS
