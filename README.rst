@@ -1,5 +1,5 @@
 Django Newsletter Signup
-============
+========================
 
 A reusable Django app, that handles newsletter subscriptions.
 
@@ -17,8 +17,6 @@ To get the latest commit from GitHub
 .. code-block:: bash
 
     pip install -e git+git://github.com/bitmazk/django-newsletter-signup.git#egg=newsletter_signup
-
-TODO: Describe further installation steps (edit / remove the examples below):
 
 Add ``newsletter_signup`` to your ``INSTALLED_APPS``
 
@@ -49,9 +47,46 @@ Don't forget to migrate your database
 Usage
 -----
 
-TODO: Describe usage or point to docs. Also describe available settings and
-templatetags.
+Just link to the signup page or fetch it's contents via AJAX into e.g. a
+bootstrap modal. Once a user fills out the subscription form she gets a
+verification email, that on click makes the Subscription verified.
 
+Future updates might include mailchimp integration to have everything setup
+right away. For now you then need to gather the emails from the admin or your
+own custom management views that you want to send mails to, or alternatively
+create a custom management command.
+
+Settings
+--------
+
+NEWSLETTER_SIGNUP_FROM_EMAIL
+++++++++++++++++++++++++++++
+
+To set the from email in the mails, you can either specifically set the
+``NEWSLETTER_SIGNUP_FROM_EMAIL`` setting or only the ``FROM_EMAIL`` setting,
+which it per default falls back to.
+
+..code-block:: python
+
+    NEWSLETTER_SIGNUP_FROM_EMAIL = 'news@example.com'
+
+
+NEWSLETTER_SIGNUP_SUBSCRIBE_SUBJECT and NEWSLETTER_SIGNUP_UNSUBSCRIBE_SUBJECT
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Both of these setting work in the same way as they set the email subject for
+the subscripe and unsubscribe email. You can either provide a string or a
+callable object receiving the subscription object as a parameter.
+See ``models.py`` for details. Alternatively you could overwrite those two
+templates ``email/unsubscripe_subject.html`` and
+``email/subscripe_subject.html``.
+
+..code-block:: python
+
+    SUBSCRIBE_SUBJECT = 'Your subscription to our newsletter!'
+
+    UNSUBSCRIBE_SUBJECT = lambda sub: '{0} was unsubscribed.'.format(
+        sub.email)
 
 Contribute
 ----------
