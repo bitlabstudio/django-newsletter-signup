@@ -1,8 +1,11 @@
 # flake8: noqa
 """Settings that need to be set in order to run the tests."""
+import logging
 import os
 
 DEBUG = True
+
+logging.getLogger("factory").setLevel(logging.WARN)
 
 SITE_ID = 1
 

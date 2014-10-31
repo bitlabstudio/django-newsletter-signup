@@ -56,6 +56,16 @@ right away. For now you then need to gather the emails from the admin or your
 own custom management views that you want to send mails to, or alternatively
 create a custom management command.
 
+Management Commands
+-------------------
+
+check_newsletter_signups
+++++++++++++++++++++++++
+
+This command will iterate through all signups and check if there's a user in
+the system matching a signup's email. You might want to run this command in a
+cron job.
+
 Settings
 --------
 

@@ -34,12 +34,14 @@ import newsletter_signup as app
 
 dev_requires = [
     'flake8',
+    'django-mailer',
 ]
 
 install_requires = [
     'django',
     'django-extensions',
     'django-mailer',
+    'django-libs',
 ]
 
 

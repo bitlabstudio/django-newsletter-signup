@@ -1,5 +1,7 @@
 === (ongoing) ===
 
+- added check_newsletter_signups command
+- improved admin
 
 === 0.1 ===
 - Initial commit

@@ -23,7 +23,7 @@ class NewsletterSignupView(CreateView):
         self.object = form.save()
         if callable(settings.SUBSCRIBE_SUBJECT):
             subject = settings.SUBSCRIBE_SUBJECT(self.object)
-        else:  # pragma: nocover
+        else:  # pragma: no cover
             subject = settings.SUBSCRIBE_SUBJECT
         extra_context = {
             'subscription': self.object,
@@ -59,7 +59,7 @@ class NewsletterUnsubscribeView(CreateView):
         self.object = form.instance
         if callable(settings.UNSUBSCRIBE_SUBJECT):
             subject = settings.UNSUBSCRIBE_SUBJECT(self.object)
-        else:  # pragma: nocover
+        else:  # pragma: no cover
             subject = settings.UNSUBSCRIBE_SUBJECT
         extra_context = {
             'subscription': self.object,
