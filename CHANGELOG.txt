@@ -1,5 +1,7 @@
 === (ongoing) ===
 
+=== 0.2 ===
+
 - added check_newsletter_signups command
 - improved admin
 
