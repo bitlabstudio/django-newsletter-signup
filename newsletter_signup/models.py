@@ -2,7 +2,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from django_extensions.db.fields import PostgreSQLUUIDField
+from django_extensions.db.fields import UUIDField
 
 
 class NewsletterSignup(models.Model):
@@ -22,7 +22,7 @@ class NewsletterSignup(models.Model):
     email = models.EmailField(verbose_name=_('Email'), max_length=64)
     signup_date = models.DateTimeField(verbose_name=_('Signup date'),
                                        auto_now_add=True)
-    verification_token = PostgreSQLUUIDField(
+    verification_token = UUIDField(
         verbose_name=_('Verification token'))
     verification_date = models.DateTimeField(
         verbose_name=_('Verification date'), blank=True, null=True)
