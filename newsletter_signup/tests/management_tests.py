@@ -2,9 +2,8 @@
 from django.core.management import call_command
 from django.test import TestCase
 
-from django_libs.tests.factories import UserFactory
+from mixer.backend.django import mixer
 
-from .factories import NewsletterSignupFactory
 from ..models import NewsletterSignup
 
 
@@ -13,12 +12,12 @@ class CheckNewsletterSignupsTestCase(TestCase):
     longMessage = True
 
     def test_reminder(self):
-        signup = NewsletterSignupFactory()
+        signup = mixer.blend('newsletter_signup.NewsletterSignup')
         call_command('check_newsletter_signups')
         self.assertIsNone(NewsletterSignup.objects.all()[0].user, msg=(
             'No user should be assigned.'))
 
-        user = UserFactory(email=signup.email)
+        user = mixer.blend('auth.User', email=signup.email)
         call_command('check_newsletter_signups')
         self.assertEqual(NewsletterSignup.objects.all()[0].user, user, msg=(
             'User instance should have been assigned.'))

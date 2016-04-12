@@ -1,7 +1,8 @@
 """Tests for the forms of the ``newsletter_signup`` app."""
 from django.test import TestCase
 
-from . import factories
+from mixer.backend.django import mixer
+
 from .. import forms
 from .. import models
 
@@ -31,7 +32,7 @@ class NewsletterUnsubscribeFormTestCase(TestCase):
     longMessage = True
 
     def setUp(self):
-        self.subscription = factories.NewsletterSignupFactory()
+        self.subscription = mixer.blend('newsletter_signup.NewsletterSignup')
         self.data = {'email': self.subscription.email}
 
     def test_form(self):

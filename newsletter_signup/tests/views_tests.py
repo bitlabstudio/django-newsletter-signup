@@ -2,8 +2,8 @@
 from django.test import TestCase
 
 from django_libs.tests.mixins import ViewRequestFactoryTestMixin
+from mixer.backend.django import mixer
 
-from . import factories
 from .. import models
 from .. import views
 
@@ -41,7 +41,7 @@ class NewsletterUnsubscribeViewTestCase(ViewRequestFactoryTestMixin, TestCase):
         return 'newsletter_unscubscribe'
 
     def setUp(self):
-        self.subscription = factories.NewsletterSignupFactory()
+        self.subscription = mixer.blend('newsletter_signup.NewsletterSignup')
         self.data = {'email': self.subscription.email}
 
     def test_view(self):
@@ -60,7 +60,7 @@ class NewsletterVerifyViewTestCase(ViewRequestFactoryTestMixin, TestCase):
         return {'uuid': self.subscription.verification_token}
 
     def setUp(self):
-        self.subscription = factories.NewsletterSignupFactory()
+        self.subscription = mixer.blend('newsletter_signup.NewsletterSignup')
 
     def test_view(self):
         self.is_callable()

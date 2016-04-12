@@ -2,8 +2,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from django_extensions.db.fields import PostgreSQLUUIDField
-
 
 class NewsletterSignup(models.Model):
     """
@@ -12,8 +10,8 @@ class NewsletterSignup(models.Model):
     :user: The user, that has subscribed. None if anonymous.
     :email: The subscribed email.
     :signup_date: The date of the subscription.
-    :verification_token: The unique token, that is required to verify the
-      subscription.
+    :verification_token: The unique token, with which a user verifies her
+      subscription. Only required if verification setting is True.
     :verification_date: The date the token was used.
 
     """
@@ -22,8 +20,8 @@ class NewsletterSignup(models.Model):
     email = models.EmailField(verbose_name=_('Email'), max_length=64)
     signup_date = models.DateTimeField(verbose_name=_('Signup date'),
                                        auto_now_add=True)
-    verification_token = PostgreSQLUUIDField(
-        verbose_name=_('Verification token'))
+    verification_token = models.UUIDField(
+        verbose_name=_('Verification token'), blank=True, null=True)
     verification_date = models.DateTimeField(
         verbose_name=_('Verification date'), blank=True, null=True)
 

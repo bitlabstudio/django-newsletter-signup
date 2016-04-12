@@ -32,17 +32,9 @@ from setuptools import setup, find_packages
 import newsletter_signup as app
 
 
-dev_requires = [
-    'flake8',
-    'django-mailer',
-]
+dev_requires = open('test_requirements.txt').read().splitlines()
 
-install_requires = [
-    'django',
-    'django-extensions',
-    'django-mailer',
-    'django-libs',
-]
+install_requires = open('requirements.txt').read().splitlines()
 
 
 def read(fname):
