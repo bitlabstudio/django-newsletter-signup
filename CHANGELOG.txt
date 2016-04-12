@@ -1,5 +1,9 @@
 === (ongoing) ===
 
+- Updated model
+    - added first_name, last_name, source and referer field
+    - added descriptors for compatibility with projects using creation_date
+      instead of signup_date
 - Made the app ready for Django 1.8-1.9 and Python2.7-3.5
 - Entirely recreated migrations for Django>1.8
 
