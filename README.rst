@@ -124,6 +124,28 @@ templates ``email/unsubscripe_subject.html`` and
     UNSUBSCRIBE_SUBJECT = lambda sub: '{0} was unsubscribed.'.format(
         sub.email)
 
+
+NEWSLETTER_SIGNUP_FORCE_MODAL
++++++++++++++++++++++++++++++
+
+``Default = False``
+If you use a modal or some other kind of visual element, to hint at the
+newsletter, you can set this to True to always show it.
+
+It's intended, that you do something like this in your template::
+
+    {% if not request.session.has_seen_newsletter_signup_modal %}
+        {% has_seen_modal %}
+        {% include "path/to/newsletter_signup_modal.html" %}
+    {% endif %}
+
+The ``has_seen_modal`` template tag sets the session value
+``has_seen_newsletter_signup_modal`` to ``True`` when the tag is rendered.
+
+That way, the user won't see the modal the next time the view is called, unless
+you set ``NEWSLETTER_SIGNUP_FORCE_MODAL`` to ``True``, since that prevents the
+session value from becoming ``True`` in the first place.
+
 Contribute
 ----------
 
