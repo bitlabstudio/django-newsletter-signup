@@ -3,6 +3,15 @@ Django Newsletter Signup
 
 A reusable Django app, that handles newsletter subscriptions.
 
+Important note!
++++++++++++++++
+
+If you upgrade from 0.2 upwards, you need to be aware, that the migrations were
+reset. They used to be south, but they have been re-created to new Django
+migrations in 0.3.
+
+If you're first install is on 0.3 or beyond, you don't have to do anything.
+
 Installation
 ------------
 
