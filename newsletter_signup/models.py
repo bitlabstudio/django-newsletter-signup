@@ -37,8 +37,8 @@ class NewsletterSignup(models.Model):
     signup_date = models.DateTimeField(verbose_name=_('signup date'),
                                        auto_now_add=True)
 
-    source = models.CharField(max_length=1024, blank=True)
-    referer = models.CharField(max_length=2048, blank=True)
+    source = models.CharField(max_length=1024, blank=True, null=True)
+    referer = models.CharField(max_length=2048, blank=True, null=True)
 
     verification_token = models.UUIDField(
         verbose_name=_('Verification token'), blank=True, null=True)
@@ -48,17 +48,17 @@ class NewsletterSignup(models.Model):
     # COMPATIBILITY CODE FOR RENAMED FIELDS
     # Use signup_date instead!
     @property
-    def creation_date(self):
+    def creation_date(self):  # pragma: nocover
         return self.signup_date
 
     @creation_date.setter
-    def creation_date(self, value):
+    def creation_date(self, value):  # pragma: nocover
         self.signup_date = value
 
     @creation_date.deleter
-    def creation_date(self):
+    def creation_date(self):  # pragma: nocover
         self.signup_date = None
     # END COMPATIBILITY CODE
 
-    def __str__(self):
+    def __str__(self):  # pragma: nocover
         return self.email
