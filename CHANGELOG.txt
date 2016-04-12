@@ -1,5 +1,8 @@
 === (ongoing) ===
 
+- Made the app ready for Django 1.8-1.9 and Python2.7-3.5
+- Entirely recreated migrations for Django>1.8
+
 === 0.2 ===
 
 - added check_newsletter_signups command
