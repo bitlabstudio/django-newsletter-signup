@@ -1,8 +1,10 @@
 """The models for the ``newsletter_signup`` app."""
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 
+@python_2_unicode_compatible
 class NewsletterSignup(models.Model):
     """
     Holds all information about a specific newsletter subscription.
@@ -58,5 +60,5 @@ class NewsletterSignup(models.Model):
         self.signup_date = None
     # END COMPATIBILITY CODE
 
-    def __unicode__(self):
+    def __str__(self):
         return self.email
