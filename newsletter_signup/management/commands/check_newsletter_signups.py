@@ -7,6 +7,11 @@ from newsletter_signup.models import NewsletterSignup
 
 
 class Command(BaseCommand):
+    """
+    Tries to match NewsletterSignups, that don't have a user with the users
+    in the database.
+
+    """
     def handle(self, **options):
         resolved = 0
         signups = NewsletterSignup.objects.filter(user__isnull=True)
