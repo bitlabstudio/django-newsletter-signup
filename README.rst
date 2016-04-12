@@ -45,6 +45,14 @@ Add the ``newsletter_signup`` URLs to your ``urls.py``
         url(r'^newsletter/', include('newsletter_signup.urls')),
     )
 
+Add the provided middleware to catch all referrers
+
+.. code-block:: python
+
+    MIDDLEWARE_CLASSES = (
+        '...',  # your other middlewares
+        'newsletter.middleware.GetRefererMiddleware',
+    )
 
 Don't forget to migrate your database
 
@@ -77,6 +85,15 @@ cron job.
 
 Settings
 --------
+
+DOMAIN
+++++++
+
+``DOMAIN`` is the hostname of your site. Default is 'localhost:8000'.
+
+.. code-block:: python
+
+    DOMAIN = 'example.com'
 
 NEWSLETTER_SIGNUP_FROM_EMAIL
 ++++++++++++++++++++++++++++

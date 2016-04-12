@@ -36,3 +36,9 @@ NAME_REQUIRED = getattr(
     'NEWSLETTER_SIGNUP_NAME_REQUIRED',
     False
 )
+
+DOMAIN = getattr(
+    settings,
+    'DOMAIN',
+    'localhost:8000'
+)

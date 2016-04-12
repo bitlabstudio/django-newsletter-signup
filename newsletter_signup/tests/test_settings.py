@@ -9,6 +9,9 @@ logging.getLogger("factory").setLevel(logging.WARN)
 
 SITE_ID = 1
 
+DOMAIN = 'localhost:8000'
+PROTOCOL = 'http'
+
 APP_ROOT = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..'))
 
