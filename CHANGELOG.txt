@@ -1,6 +1,10 @@
 === (ongoing) ===
 
-- Updated model
+- Added setting to toggle verification process (default is False = not required)
+- Extended forms and views to allow optional verification
+- Simplified NewsletterSignupView
+- Added NewsletterSignupSuccessView
+- Updated NewsletterSignup model
     - added first_name, last_name, source and referer field
     - added descriptors for compatibility with projects using creation_date
       instead of signup_date

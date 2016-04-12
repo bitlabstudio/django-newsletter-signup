@@ -1,4 +1,5 @@
 """Tests for the views of the ``newsletter_signup`` app."""
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from django_libs.tests.mixins import ViewRequestFactoryTestMixin
@@ -21,14 +22,13 @@ class NewsletterSignupViewTestCase(ViewRequestFactoryTestMixin, TestCase):
 
     def test_view(self):
         self.is_callable()
-
-        resp = self.post(data=self.data)
-        self.assert200(resp, msg=('The view should have been callable.'))
+        self.is_postable(data=self.data,
+                         to=reverse('newsletter_signup_success'))
         self.assertEqual(models.NewsletterSignup.objects.count(), 1, msg=(
             'There should be one subscription in the database.'))
-        resp = self.post(data=self.data, ajax=True)
-        self.assert200(resp, msg=('The view should have been callable.'))
-        self.is_postable(ajax=True, data=self.data2)
+        self.post(data=self.data, ajax=True)
+        self.is_postable(ajax=True, data=self.data2,
+                         to=reverse('newsletter_signup_success'))
         self.assertEqual(models.NewsletterSignup.objects.count(), 2, msg=(
             'There should be two subscriptions in the database.'))
 
@@ -71,3 +71,12 @@ class NewsletterVerifyViewTestCase(ViewRequestFactoryTestMixin, TestCase):
         self.is_callable()
 
         self.is_callable(kwargs={'uuid': 'wrong-uuid'})
+
+
+class NewsletterSignupSuccessViewTestCase(ViewRequestFactoryTestMixin,
+                                          TestCase):
+    """Tests for the ``NewsletterSignupSuccessView`` view class."""
+    view_class = views.NewsletterSignupSuccessView
+
+    def test_view(self):
+        self.is_callable()

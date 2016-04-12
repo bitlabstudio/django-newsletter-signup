@@ -15,4 +15,7 @@ urlpatterns = patterns(
     url(r'^unsubscribe/$',
         views.NewsletterUnsubscribeView.as_view(),
         name='newsletter_unscubscribe'),
+    url(r'^success/$',
+        views.NewsletterSignupSuccessView.as_view(),
+        name='newsletter_signup_success'),
 )

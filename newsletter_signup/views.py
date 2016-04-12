@@ -1,7 +1,9 @@
 """Views for the newsletter_signup app."""
+from django.core.urlresolvers import reverse
 from django.utils.timezone import now
 from django.views.generic import CreateView, TemplateView
 
+from django_libs.views_mixins import AjaxResponseMixin
 from django_libs.utils_email import send_email
 
 from . import forms
@@ -9,7 +11,7 @@ from . import models
 from . import settings
 
 
-class NewsletterSignupView(CreateView):
+class NewsletterSignupView(AjaxResponseMixin, CreateView):
     """
     The view, where a user subscribes to the newsletter. Can also receive an
     AJAX request and answer with a partial.
@@ -17,34 +19,15 @@ class NewsletterSignupView(CreateView):
     """
     form_class = forms.NewsletterSignupForm
     template_name = 'newsletter_signup/signup.html'
-    ajax_template_name = 'newsletter_signup/ajax/signup.html'
+    ajax_template_prefix = 'ajax/'
 
-    def form_valid(self, form):
-        self.object = form.save()
-        if callable(settings.SUBSCRIBE_SUBJECT):
-            subject = settings.SUBSCRIBE_SUBJECT(self.object)
-        else:  # pragma: no cover
-            subject = settings.SUBSCRIBE_SUBJECT
-        extra_context = {
-            'subscription': self.object,
-            'subject': subject,
-        }
-        send_email(
-            self.request,
-            extra_context,
-            'newsletter_signup/email/subscribe_subject.html',
-            'newsletter_signup/email/subscribe_body.html',
-            settings.FROM_EMAIL,
-            [self.object.email],
-        )
-        return self.render_to_response(self.get_context_data(
-            form=form, subscription=self.object))
+    def get_form_kwargs(self):
+        kwargs = super(NewsletterSignupView, self).get_form_kwargs()
+        kwargs.update({'request': self.request, })
+        return kwargs
 
-    def get_template_names(self):
-        if self.request.is_ajax():
-            return [self.ajax_template_name]
-        else:
-            return [self.template_name]
+    def get_success_url(self):
+        return reverse('newsletter_signup_success')
 
 
 class NewsletterUnsubscribeView(CreateView):
@@ -57,22 +40,25 @@ class NewsletterUnsubscribeView(CreateView):
 
     def form_valid(self, form):
         self.object = form.instance
-        if callable(settings.UNSUBSCRIBE_SUBJECT):
-            subject = settings.UNSUBSCRIBE_SUBJECT(self.object)
-        else:  # pragma: no cover
-            subject = settings.UNSUBSCRIBE_SUBJECT
-        extra_context = {
-            'subscription': self.object,
-            'subject': subject,
-        }
-        send_email(
-            self.request,
-            extra_context,
-            'newsletter_signup/email/unsubscribe_subject.html',
-            'newsletter_signup/email/unsubscribe_body.html',
-            settings.FROM_EMAIL,
-            [self.object.email],
-        )
+        if settings.VERIFICATION_REQUIRED:
+            # if no verification was required to signup, then no verification
+            # is required to unsubscribe
+            if callable(settings.UNSUBSCRIBE_SUBJECT):
+                subject = settings.UNSUBSCRIBE_SUBJECT(self.object)
+            else:  # pragma: no cover
+                subject = settings.UNSUBSCRIBE_SUBJECT
+            extra_context = {
+                'subscription': self.object,
+                'subject': subject,
+            }
+            send_email(
+                self.request,
+                extra_context,
+                'newsletter_signup/email/unsubscribe_subject.html',
+                'newsletter_signup/email/unsubscribe_body.html',
+                settings.FROM_EMAIL,
+                [self.object.email],
+            )
         form.delete()
         return self.render_to_response(self.get_context_data(
             form=form, subscription_deleted=True))
@@ -103,3 +89,8 @@ class NewsletterVerifyView(TemplateView):
             else:
                 context.update({'activated': False})
         return self.render_to_response(context)
+
+
+class NewsletterSignupSuccessView(AjaxResponseMixin, TemplateView):
+    template_name = 'newsletter_signup/success.html'
+    ajax_template_prefix = 'ajax/'

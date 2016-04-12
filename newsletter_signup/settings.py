@@ -2,7 +2,7 @@
 from django.conf import settings
 
 
-def get_newsletter_signup_from_email():
+def get_newsletter_signup_from_email():  # pragma: nocover
     try:
         email = getattr(settings, 'NEWSLETTER_SIGNUP_FROM_EMAIL',
                         settings.FROM_EMAIL)
@@ -24,3 +24,15 @@ SUBSCRIBE_SUBJECT = getattr(
 UNSUBSCRIBE_SUBJECT = getattr(
     settings, 'NEWSLETTER_SIGNUP_UNSUBSCRIBE_SUBJECT',
     'You\'ve been unsubscribed from our newsletter')
+
+VERIFICATION_REQUIRED = getattr(
+    settings,
+    'NEWSLETTER_SIGNUP_VERIFICATION_REQUIRED',
+    False
+)
+
+NAME_REQUIRED = getattr(
+    settings,
+    'NEWSLETTER_SIGNUP_NAME_REQUIRED',
+    False
+)
