@@ -1,5 +1,8 @@
 === (ongoing) ===
 
+
+=== 0.3.1 ===
+
 - Added ``has_seen_modal`` template tag
 
 === 0.3 ===
