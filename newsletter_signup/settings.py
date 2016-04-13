@@ -42,3 +42,9 @@ DOMAIN = getattr(
     'DOMAIN',
     'localhost:8000'
 )
+
+FORCE_MODAL = getattr(
+    settings,
+    'NEWSLETTER_SIGNUP_FORCE_MODAL',
+    False,
+)
