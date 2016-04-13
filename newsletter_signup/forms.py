@@ -28,6 +28,7 @@ class NewsletterSignupForm(forms.ModelForm):
             self.fields['first_name'].required = True
             self.fields['last_name'].required = True
         self.fields['email'].required = True
+        self.verification_required = settings.VERIFICATION_REQUIRED
 
     def clean_uuid(self):
         if settings.VERIFICATION_REQUIRED:

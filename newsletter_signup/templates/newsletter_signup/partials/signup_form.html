@@ -1,6 +1,8 @@
 {% load i18n %}
 <form action="{% url "newsletter_signup" %}" method="post" id="newsletterSignupForm">
     {% csrf_token %}
-    <p>{% include "django_libs/partials/form_field.html" with field=form.email %}</p>
+    {% for field in form %}
+      <p>{% include "django_libs/partials/form_field.html" with field=field %}</p>
+    {% endfor %}
     <p><input type="submit" class="btn btn-primary" value="{% trans "Signup" %}"></p>
 </form>
