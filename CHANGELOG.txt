@@ -1,5 +1,10 @@
 === (ongoing) ===
 
+
+=== 0.3.3 ===
+
+- re-setting the state of the modal to not shown when forcing the modal
+
 === 0.3.2 ===
 
 - Fixed ``NEWSLETTER_SIGNUP_FORCE_MODAL`` setting
