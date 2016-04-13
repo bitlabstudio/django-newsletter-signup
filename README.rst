@@ -89,7 +89,9 @@ Settings
 DOMAIN
 ++++++
 
-``DOMAIN`` is the hostname of your site. Default is 'localhost:8000'.
+``Default = 'locahost:8000'``
+
+``DOMAIN`` is the hostname of your site.
 
 .. code-block:: python
 
@@ -129,6 +131,7 @@ NEWSLETTER_SIGNUP_FORCE_MODAL
 +++++++++++++++++++++++++++++
 
 ``Default = False``
+
 If you use a modal or some other kind of visual element, to hint at the
 newsletter, you can set this to True to always show it.
 
@@ -145,6 +148,26 @@ The ``has_seen_modal`` template tag sets the session value
 That way, the user won't see the modal the next time the view is called, unless
 you set ``NEWSLETTER_SIGNUP_FORCE_MODAL`` to ``True``, since that prevents the
 session value from becoming ``True`` in the first place.
+
+NEWSLETTER_SIGNUP_NAME_REQUIRED
++++++++++++++++++++++++++++++++
+
+``Default = False``
+
+If set to ``True`` this setting will add ``first_name`` and ``last_name`` fields
+to the signup form. These values are then stored on the ``NewsletterSignup``
+model.
+
+NEWSLETTER_SIGNUP_VERIFICATION_REQUIRED
++++++++++++++++++++++++++++++++++++++++
+
+``Default = False``
+
+If set to ``True`` the user will receive an email after signing up with a
+verification link.
+Same goes for unsubscription.
+Per default the user is just (un)subscribed on form submit.
+
 
 Contribute
 ----------

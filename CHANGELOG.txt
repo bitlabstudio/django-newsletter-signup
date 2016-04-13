@@ -1,5 +1,10 @@
 === (ongoing) ===
 
+
+=== 0.3 ===
+
+- Added setting to toggle if name is required for newsletter signup (default is
+  False = only email required)
 - Added setting to toggle verification process (default is False = not required)
 - Extended forms and views to allow optional verification
 - Simplified NewsletterSignupView
