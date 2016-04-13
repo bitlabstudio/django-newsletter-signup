@@ -1,5 +1,7 @@
 === (ongoing) ===
 
+=== 0.3.2 ===
+
 - Fixed ``NEWSLETTER_SIGNUP_FORCE_MODAL`` setting
 
 === 0.3.1 ===
