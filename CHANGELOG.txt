@@ -1,5 +1,6 @@
 === (ongoing) ===
 
+- Improved admins
 - Fixed MANIFEST.in
 - re-setting the state of the modal to not shown when forcing the modal
 - Fixed ``NEWSLETTER_SIGNUP_FORCE_MODAL`` setting
