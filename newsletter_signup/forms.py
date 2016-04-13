@@ -38,8 +38,9 @@ class NewsletterSignupForm(forms.ModelForm):
         email = self.data.get('email', None)
         if email is not None:
             if models.NewsletterSignup.objects.filter(email=email).exists():
-                self._errors['email'] = [_(
-                    'A subscription with this email already exists.')]
+                raise forms.ValidationError(_(
+                    'A subscription with this email already exists.'
+                ))
         return email
 
     def save(self, *args, **kwargs):
