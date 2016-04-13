@@ -3,6 +3,8 @@ include LICENSE
 include DESCRIPTION
 include CHANGELOG.txt
 include README.md
+include requirements.txt
+include test_requirements.txt
 graft newsletter_signup
 global-exclude *.orig *.pyc *.log *.swp
 prune newsletter_signup/tests/coverage
