@@ -11,7 +11,7 @@ from . import settings
 
 
 if settings.NAME_REQUIRED:
-    SIGNUP_FIELDS = ['email', 'first_name', 'last_name']
+    SIGNUP_FIELDS = ['first_name', 'last_name', 'email']
 else:
     SIGNUP_FIELDS = ['email', ]
 
