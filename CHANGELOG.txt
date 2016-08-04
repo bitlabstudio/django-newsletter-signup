@@ -1,5 +1,8 @@
 === (ongoing) ===
 
+=== 0.4 ===
+
+- Prepared app for Django 1.10
 - Fixed email creation and ajax template response
 - Improved admins
 - Fixed MANIFEST.in
