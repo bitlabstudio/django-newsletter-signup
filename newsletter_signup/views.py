@@ -84,7 +84,7 @@ class NewsletterVerifyView(TemplateView):
         uuid = kwargs.get('uuid')
         try:
             subscription = models.NewsletterSignup.objects.get(
-                verification_token=uuid)
+                verification_token__iexact=uuid)
         except:
             context.update({'token_found': False, 'activated': False})
         else:

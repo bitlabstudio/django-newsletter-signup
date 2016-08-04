@@ -1,5 +1,7 @@
 === (ongoing) ===
 
+- Fixed verification view
+
 === 0.4 ===
 
 - Prepared app for Django 1.10
