@@ -1,11 +1,10 @@
 """URLs for the newsletter_signup app."""
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from . import views
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^signup/$',
         views.NewsletterSignupView.as_view(),
         name='newsletter_signup'),
@@ -18,4 +17,4 @@ urlpatterns = patterns(
     url(r'^success/$',
         views.NewsletterSignupSuccessView.as_view(),
         name='newsletter_signup_success'),
-)
+]

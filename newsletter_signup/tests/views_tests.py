@@ -17,8 +17,11 @@ class NewsletterSignupViewTestCase(ViewRequestFactoryTestMixin, TestCase):
         return 'newsletter_signup'
 
     def setUp(self):
-        self.data = {'email': 'email@example.com'}
-        self.data2 = {'email': 'email2@example.com'}
+        self.data = {
+            'email': 'email@example.com',
+            'first_name': 'Foo',
+            'last_name': 'Bar',
+        }
 
     def test_view(self):
         self.is_callable()
@@ -27,10 +30,15 @@ class NewsletterSignupViewTestCase(ViewRequestFactoryTestMixin, TestCase):
         self.assertEqual(models.NewsletterSignup.objects.count(), 1, msg=(
             'There should be one subscription in the database.'))
         self.post(data=self.data, ajax=True)
-        self.is_postable(ajax=True, data=self.data2,
+        self.data.update({'email': 'email2@example.com'})
+        self.is_postable(data=self.data,
                          to=reverse('newsletter_signup_success'))
         self.assertEqual(models.NewsletterSignup.objects.count(), 2, msg=(
             'There should be two subscriptions in the database.'))
+        self.data.update({'email': 'email3@example.com'})
+        self.is_postable(ajax=True, data=self.data)
+        self.assertEqual(models.NewsletterSignup.objects.count(), 3, msg=(
+            'There should be three subscriptions in the database.'))
 
 
 class NewsletterUnsubscribeViewTestCase(ViewRequestFactoryTestMixin, TestCase):

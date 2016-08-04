@@ -1,8 +1,7 @@
 """URLs to run the tests."""
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^newsletter/', include('newsletter_signup.urls')),
-)
+]

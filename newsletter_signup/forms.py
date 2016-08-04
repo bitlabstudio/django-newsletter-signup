@@ -4,7 +4,7 @@ import uuid
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from django_libs.utils_email import send_email
+from django_libs.utils.email import send_email
 
 from . import models
 from . import settings
@@ -20,6 +20,7 @@ class NewsletterSignupForm(forms.ModelForm):
     """The form that handles the newsletter subscription."""
 
     def __init__(self, request, *args, **kwargs):
+        self.request = request
         super(NewsletterSignupForm, self).__init__(*args, **kwargs)
         self.source = request.GET.urlencode()
         # TODO: Where does the initial_referer come from?
@@ -29,11 +30,6 @@ class NewsletterSignupForm(forms.ModelForm):
             self.fields['last_name'].required = True
         self.fields['email'].required = True
         self.verification_required = settings.VERIFICATION_REQUIRED
-
-    def clean_uuid(self):
-        if settings.VERIFICATION_REQUIRED:
-            return uuid.uuid4()
-        return ''
 
     def clean_email(self):
         email = self.data.get('email', None)
@@ -53,7 +49,7 @@ class NewsletterSignupForm(forms.ModelForm):
             # ATM this email only serves verification purposes and is not for
             # mere confirmation
             if callable(settings.SUBSCRIBE_SUBJECT):
-                subject = settings.SUBSCRIBE_SUBJECT(self.object)
+                subject = settings.SUBSCRIBE_SUBJECT(self.instance)
             else:  # pragma: no cover
                 subject = settings.SUBSCRIBE_SUBJECT
             extra_context = {
