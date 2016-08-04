@@ -47,8 +47,8 @@ class NewsletterSignupForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         self.instance.source = self.source
         self.instance.referer = self.referer
-
-        instance = super(NewsletterSignupForm, self).save(*args, **kwargs)
+        self.instance.verification_token = uuid.uuid4()
+        self.instance = super(NewsletterSignupForm, self).save(*args, **kwargs)
         if settings.VERIFICATION_REQUIRED:
             # ATM this email only serves verification purposes and is not for
             # mere confirmation
@@ -57,7 +57,7 @@ class NewsletterSignupForm(forms.ModelForm):
             else:  # pragma: no cover
                 subject = settings.SUBSCRIBE_SUBJECT
             extra_context = {
-                'subscription': self.object,
+                'subscription': self.instance,
                 'subject': subject,
             }
             send_email(
@@ -66,9 +66,9 @@ class NewsletterSignupForm(forms.ModelForm):
                 'newsletter_signup/email/subscribe_subject.html',
                 'newsletter_signup/email/subscribe_body.html',
                 settings.FROM_EMAIL,
-                [self.object.email],
+                [self.instance.email],
             )
-            return instance
+            return self.instance
 
     class Meta:
         model = models.NewsletterSignup

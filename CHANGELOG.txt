@@ -1,5 +1,6 @@
 === (ongoing) ===
 
+- Fixed email creation and ajax template response
 - Improved admins
 - Fixed MANIFEST.in
 - re-setting the state of the modal to not shown when forcing the modal

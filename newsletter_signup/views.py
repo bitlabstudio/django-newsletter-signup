@@ -26,6 +26,13 @@ class NewsletterSignupView(AjaxResponseMixin, CreateView):
         kwargs.update({'request': self.request, })
         return kwargs
 
+    def form_valid(self, form):
+        self.object = form.save()
+        if self.request.is_ajax():
+            return self.render_to_response(self.get_context_data(
+                form=form, subscription=self.object))
+        return super(NewsletterSignupView, self).form_valid(form)
+
     def get_success_url(self):
         return reverse('newsletter_signup_success')
 
