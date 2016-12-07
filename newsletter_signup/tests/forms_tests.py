@@ -55,7 +55,14 @@ class NewsletterSignupFormTestCase(TestCase):
             'When the names are required, and provided correctly, the form'
             ' should be valid'))
 
-        forms.NewsletterSignupForm.Meta.fields = ['email', ]
+    def test_settings_name_required(self):
+        request = self.get_request(self.data)
+        with self.settings(NEWSLETTER_SIGNUP_NAME_REQUIRED=True):
+            form = forms.NewsletterSignupForm(request=request, data=self.data)
+            self.assertTrue('first_name' in form.Meta.fields)
+        with self.settings(NEWSLETTER_SIGNUP_NAME_REQUIRED=False):
+            form = forms.NewsletterSignupForm(request=request, data=self.data)
+            self.assertFalse('first_name' in form.Meta.fields)
 
 
 class NewsletterUnsubscribeFormTestCase(TestCase):

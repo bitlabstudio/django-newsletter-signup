@@ -10,9 +10,7 @@ class HasSeenModalTestCase(TestCase):
     def test_tag(self):
         req = RequestFactory().get('/')
         req.session = {}
-        context = {
-            'request': req,
-        }
+        context = {'request': req}
         tags.has_seen_modal(context)
         self.assertTrue(
             context['request'].session['has_seen_newsletter_signup_modal'],

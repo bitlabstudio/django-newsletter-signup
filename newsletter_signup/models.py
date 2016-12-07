@@ -18,7 +18,12 @@ class NewsletterSignup(models.Model):
     :signup_date: The date of the subscription.
     :source: Encoded GET arguments. Let's you store e.g. campaign specific
       information.
-    :referer: Origin of the newsletter subscription.
+    :referer: HTTP referer when the user visited the site for the first time.
+      This can often be empty when the user came from secure sites or their
+      client is surpressing the HTTP referer.
+    :current_referer: HTTP referer at the moment when the user submits the
+      form. This can often be your own site because the user might have
+      browsed around for a while before submitting the form.
     :verification_token: The unique token, with which a user verifies her
       subscription. Only required if verification setting is True.
     :verification_date: The date the token was used.
@@ -27,18 +32,21 @@ class NewsletterSignup(models.Model):
       name and email values are stored directly here.
 
     """
-    user = models.ForeignKey('auth.User', verbose_name=_('user'),
-                             blank=True, null=True)
-    first_name = models.CharField(max_length=512, blank=True,
-                                  verbose_name=_('first name'), )
-    last_name = models.CharField(max_length=512, blank=True,
-                                 verbose_name=_('last name'))
+    user = models.ForeignKey(
+        'auth.User', verbose_name=_('user'), blank=True, null=True)
+    first_name = models.CharField(
+        max_length=512, blank=True, verbose_name=_('first name'), )
+    last_name = models.CharField(
+        max_length=512, blank=True, verbose_name=_('last name'))
     email = models.EmailField(max_length=1024, verbose_name=_('email'))
-    signup_date = models.DateTimeField(verbose_name=_('signup date'),
-                                       auto_now_add=True)
+    signup_date = models.DateTimeField(
+        verbose_name=_('signup date'), auto_now_add=True)
 
     source = models.CharField(max_length=1024, blank=True, null=True)
-    referer = models.CharField(max_length=2048, blank=True, null=True)
+    referer = models.CharField(
+        max_length=2048, blank=True, verbose_name=_('Initial referer')
+    )
+    current_referer = models.CharField(max_length=2048, blank=True)
 
     verification_token = models.UUIDField(
         verbose_name=_('Verification token'), blank=True, null=True)

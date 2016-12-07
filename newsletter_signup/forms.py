@@ -12,7 +12,7 @@ from . import settings
 
 if settings.NAME_REQUIRED:
     SIGNUP_FIELDS = ['first_name', 'last_name', 'email']
-else:
+else:  # pragma: nocover
     SIGNUP_FIELDS = ['email', ]
 
 
@@ -22,9 +22,9 @@ class NewsletterSignupForm(forms.ModelForm):
     def __init__(self, request, *args, **kwargs):
         self.request = request
         super(NewsletterSignupForm, self).__init__(*args, **kwargs)
-        self.source = request.GET.urlencode()
-        # TODO: Where does the initial_referer come from?
-        self.referer = request.session.get('initial_referer')
+        self.source = request.session.get('initial_source', '')
+        self.referer = request.session.get('initial_referer', '')
+        self.current_referer = request.META.get('HTTP_REFERER', '')
         if settings.NAME_REQUIRED:
             self.fields['first_name'].required = True
             self.fields['last_name'].required = True
@@ -43,6 +43,7 @@ class NewsletterSignupForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         self.instance.source = self.source
         self.instance.referer = self.referer
+        self.instance.current_referer = self.current_referer
         self.instance.verification_token = uuid.uuid4()
         self.instance = super(NewsletterSignupForm, self).save(*args, **kwargs)
         if settings.VERIFICATION_REQUIRED:

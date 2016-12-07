@@ -20,10 +20,4 @@ class GetRefererMiddlewareTestCase(TestCase):
         req.META['HTTP_REFERER'] = new_referer
         middleware.GetRefererMiddleware().process_request(req)
         self.assertEqual(req.session['initial_referer'], referer, msg=(
-            'Should not set the new referer when it is an internal one'))
-
-        new_referer = 'http://bing.com'
-        req.META['HTTP_REFERER'] = new_referer
-        middleware.GetRefererMiddleware().process_request(req)
-        self.assertEqual(req.session['initial_referer'], new_referer, msg=(
-            'Should not set the new referer when it is an external one'))
+            'Should not set the new referer when it has already been set'))

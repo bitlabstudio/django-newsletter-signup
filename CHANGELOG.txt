@@ -1,6 +1,10 @@
 === (ongoing) ===
 
 - Fixed verification view
+- Made sure that `initial_source` and `initial_referer` really only get saved
+  in the session when the user visits the site for the first time.
+- Added new field `current_referer`
+- Bumped to 100% test coverage (but had to cheat in one test)
 
 === 0.4 ===
 

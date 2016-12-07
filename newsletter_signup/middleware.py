@@ -1,13 +1,13 @@
 """Middlewares for the newsletter_signup app."""
-import re
-
-from . import settings
 
 
 class GetRefererMiddleware(object):
     def process_request(self, request):
         referer = request.META.get('HTTP_REFERER')
-        pattern = r'https?://{0}'.format(settings.DOMAIN)
-        if referer and re.match(pattern=pattern, string=referer):
-            return
-        request.session['initial_referer'] = referer
+        if request.session.get('initial_referer') is None:
+            request.session['initial_referer'] = referer and referer or ''
+            pass
+        if request.session.get('initial_source') is None:
+            source = request.GET.urlencode()
+            request.session['initial_source'] = source and source or ''
+            pass
