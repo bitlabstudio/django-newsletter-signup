@@ -33,7 +33,9 @@ class NewsletterSignup(models.Model):
 
     """
     user = models.ForeignKey(
-        'auth.User', verbose_name=_('user'), blank=True, null=True)
+        'auth.User',
+        verbose_name=_('user'),
+        blank=True, null=True, on_delete=models.SET_NULL)
     first_name = models.CharField(
         max_length=512, blank=True, verbose_name=_('first name'), )
     last_name = models.CharField(
@@ -66,6 +68,7 @@ class NewsletterSignup(models.Model):
     @creation_date.deleter
     def creation_date(self):  # pragma: nocover
         self.signup_date = None
+
     # END COMPATIBILITY CODE
 
     def __str__(self):  # pragma: nocover
