@@ -1,5 +1,9 @@
 === (ongoing) ===
 
+- Django 2.0 & Python 3 compatibility
+
+=== 0.5 ===
+
 - Fixed verification view
 - Made sure that `initial_source` and `initial_referer` really only get saved
   in the session when the user visits the site for the first time.
