@@ -1,4 +1,4 @@
-=== (ongoing) ===
+=== 0.6.X (ongoing) ===
 
 - Django 2.0 & Python 3 compatibility
 
