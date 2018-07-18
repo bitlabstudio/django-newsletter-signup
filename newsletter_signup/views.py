@@ -1,5 +1,5 @@
 """Views for the newsletter_signup app."""
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.timezone import now
 from django.views.generic import CreateView, TemplateView
 

@@ -1,7 +1,8 @@
 """Middlewares for the newsletter_signup app."""
+from django.utils.deprecation import MiddlewareMixin
 
 
-class GetRefererMiddleware(object):
+class GetRefererMiddleware(MiddlewareMixin):
     def process_request(self, request):
         referer = request.META.get('HTTP_REFERER')
         if request.session.get('initial_referer') is None:
