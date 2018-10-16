@@ -4,7 +4,7 @@ from django.utils.timezone import now
 from django.views.generic import CreateView, TemplateView
 
 from django_libs.views_mixins import AjaxResponseMixin
-from django_libs.utils_email import send_email
+from django_libs.utils.email import send_email
 
 from . import forms
 from . import models
