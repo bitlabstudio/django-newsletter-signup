@@ -1,5 +1,5 @@
 """URLs for the newsletter_signup app."""
-from django.conf.urls import re_path
+from django.urls import re_path
 
 from . import views
 
